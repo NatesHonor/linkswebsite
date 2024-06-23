@@ -1,63 +1,92 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f0f0f0 25%, #d9d9d9 100%);
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  color: #333;
 }
 
 .container {
   background-color: #fff;
-  padding: 20px 40px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px 50px;
+  border-radius: 15px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
   text-align: center;
+  max-width: 500px;
+  width: 100%;
+  animation: fadeIn 1s ease-in-out;
 }
 
 .header {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .header h1 {
   margin: 0;
-  font-size: 2em;
-  color: #333;
+  font-size: 2.5em;
+  color: #222;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .header p {
-  color: #666;
+  color: #555;
   margin: 10px 0 0;
+  font-size: 1.1em;
 }
 
 .links {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .link {
   text-decoration: none;
   color: #fff;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 12px 25px;
+  border-radius: 25px;
   margin: 10px 0;
-  font-size: 1.2em;
-  transition: background-color 0.3s ease;
+  font-size: 1.3em;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
-.linkedin { background-color: #0077b5; }
-.linkedin:hover { background-color: #005582; }
+.link .svg-inline--fa {
+  margin-right: 15px;
+  font-size: 1.5em;
+}
 
-.twitter { background-color: #1da1f2; }
-.twitter:hover { background-color: #0d8ddb; }
+.link:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+}
 
-.instagram { background-color: #e4405f; }
-.instagram:hover { background-color: #cc3652; }
+.linkedin { background: linear-gradient(135deg, #0077b5, #005582); }
+.twitter { background: linear-gradient(135deg, #1da1f2, #0d8ddb); }
+.instagram { background: linear-gradient(135deg, #e4405f, #cc3652); }
+.github { background: linear-gradient(135deg, #333, #24292e); }
+.portfolio { background: linear-gradient(135deg, #4CAF50, #45a049); }
 
-.github { background-color: #333; }
-.github:hover { background-color: #24292e; }
+.instagram.hovered {
+  background: #fff;
+  color: #e4405f;
+  border: 2px solid #e4405f;
+}
 
-.portfolio { background-color: #4CAF50; }
-.portfolio:hover { background-color: #45a049; }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
