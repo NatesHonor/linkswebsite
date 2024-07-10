@@ -120,9 +120,9 @@ body {
   font-weight: bold;
   font-size: 12px;
   text-transform: uppercase;
-  padding: 5px 30px; /* Increased padding horizontally to make it longer */
+  padding: 5px 30px;
   background-color: #ccc;
-  border-radius: 20px; /* Changed border-radius to make it rounded */
+  border-radius: 20px;
 }
 
 .slider {
