@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFolder } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedin, faTwitter, faInstagram, faGithub } from '@fortawesome/free-brands-svg-icons';
 
 function App() {
@@ -58,7 +59,7 @@ function App() {
           <FontAwesomeIcon icon={faInstagram} /> {isHovered ? '9.5k Followers' : 'Instagram'}
         </a>
         <a href="https://natemarcellus.com/" target="_blank" className={`link portfolio ${isDarkMode ? 'dark-link' : ''}`} rel="noopener noreferrer">
-        <FontAwesomeIcon icon={faFolder} /> Portfolio
+          <FontAwesomeIcon icon={faFolder} /> Portfolio
         </a>
       </div>
     </div>
