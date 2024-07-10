@@ -28,15 +28,18 @@ function App() {
 
   return (
     <div className={`container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
+      <div className="mode-switch" onClick={toggleDarkMode}>
+        <div className={`slider ${isDarkMode ? 'slider-dark' : 'slider-light'}`}></div>
+        <span className={`toggle-text ${isDarkMode ? 'text-light' : 'text-dark'}`}>
+          {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+        </span>
+      </div>
       <div className="header">
-        <h1>
+        <h1 style={{ color: isDarkMode ? '#fff' : '#333' }}>
           Nate
           <span className="subscript">All Round Developer | Content Creator</span>
         </h1>
         <p>Find ways to connect with me and view my work!</p>
-        <div className="mode-switch" onClick={toggleDarkMode}>
-          {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-        </div>
       </div>
       <div className="links">
         <a href="https://www.linkedin.com/in/nmarcellus/" target="_blank" className={`link linkedin ${isDarkMode ? 'dark-link' : ''}`} rel="noopener noreferrer">
