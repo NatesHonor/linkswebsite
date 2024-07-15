@@ -1,19 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './Styles/App.css';
 import { faFolder, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { faLinkedin, faTwitter, faInstagram, faGithub, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram, faGithub, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import Header from './Components/Header';
+import LinkItem from './Components/LinkItem';
+import SocialIcons from './Components/SocialIcons';
+import DarkModeToggle from './Components/DarkModeToggle';
+import CookieConsent from './Components/CookieConsent';
 
 function App() {
   const [isHovered, setIsHovered] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isCookieConsentGiven, setIsCookieConsentGiven] = useState(null);
 
   useEffect(() => {
-    const savedDarkMode = localStorage.getItem('isDarkMode');
-    if (savedDarkMode) {
-      setIsDarkMode(JSON.parse(savedDarkMode));
+    const cookieConsent = localStorage.getItem('cookieConsent');
+    if (cookieConsent) {
+      setIsCookieConsentGiven(JSON.parse(cookieConsent));
+      const savedDarkMode = localStorage.getItem('isDarkMode');
+      if (savedDarkMode) {
+        setIsDarkMode(JSON.parse(savedDarkMode));
+      }
     }
   }, []);
+
+  useEffect(() => {
+    if (isCookieConsentGiven !== null) {
+      localStorage.setItem('cookieConsent', JSON.stringify(isCookieConsentGiven));
+    }
+  }, [isCookieConsentGiven]);
 
   useEffect(() => {
     const body = document.body;
@@ -25,8 +40,10 @@ function App() {
       body.style.color = '#333';
     }
 
-    localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
-  }, [isDarkMode]);
+    if (isCookieConsentGiven) {
+      localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
+    }
+  }, [isDarkMode, isCookieConsentGiven]);
 
   const handleMouseOver = () => setIsHovered(true);
   const handleMouseOut = () => setIsHovered(false);
@@ -35,62 +52,66 @@ function App() {
     setIsDarkMode(prevMode => !prevMode);
   };
 
+  const handleCookieConsent = (consent) => {
+    setIsCookieConsentGiven(consent);
+    if (!consent) {
+      localStorage.removeItem('isDarkMode');
+    }
+  };
+
   return (
     <div>
+      {isCookieConsentGiven === null && (
+        <CookieConsent handleCookieConsent={handleCookieConsent} />
+      )}
       <div className={`container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
-        <div className="mode-switch" onClick={toggleDarkMode}>
-          <div className={`slider ${isDarkMode ? 'slider-dark' : 'slider-light'}`}></div>
-          <span className={`toggle-text ${isDarkMode ? 'text-light' : 'text-dark'}`}>
-            {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-          </span>
-        </div>
-        <div className="header">
-          <h1 style={{ color: isDarkMode ? '#fff' : '#333' }}>
-            Nate
-            <span className="subscript">All Round Developer | Content Creator</span>
-          </h1>
-          <p>Find ways to connect with me and view my work!</p>
-        </div>
+        <DarkModeToggle isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+        <Header isDarkMode={isDarkMode} />
         <div className="links">
-          <a href="mailto:contact@natemarcellus.com" className={`link portfolio ${isDarkMode ? 'dark-link' : ''}`} rel="noopener noreferrer">
-            <FontAwesomeIcon icon={faEnvelope} /> Email Me
-          </a>
-          <a 
-          href="sms:+1234567890" 
-          target="_blank"
-          className={`link portfolio ${isHovered ? 'hovered' : ''} ${isDarkMode ? 'dark-link' : ''}`}
-          rel="noopener noreferrer"
-          onMouseOver={handleMouseOver}
-          onMouseOut={handleMouseOut}
-          >
-          <FontAwesomeIcon icon={faWhatsapp} /> Text Me
-          </a>
-          <a href="https://github.com/NatesHonor/" target="_blank" className={`link github ${isDarkMode ? 'dark-link' : ''}`} rel="noopener noreferrer">
-            <FontAwesomeIcon icon={faGithub} /> GitHub
-          </a>
-          <a 
-            href="https://www.instagram.com/nateshonor/" 
-            target="_blank" 
-            className={`link instagram ${isHovered ? 'hovered' : ''} ${isDarkMode ? 'dark-link' : ''}`} 
-            rel="noopener noreferrer"
+          <LinkItem
+            href="mailto:contact@natemarcellus.com"
+            className="portfolio"
+            icon={faEnvelope}
+            label="Email Me"
+            isDarkMode={isDarkMode}
+          />
+          <LinkItem
+            href="sms:+1234567890"
+            className="portfolio"
+            icon={faWhatsapp}
+            label="Text Me"
+            isHovered={isHovered}
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
-          >
-            <FontAwesomeIcon icon={faInstagram} /> {isHovered ? '9.5k Followers' : 'Instagram'}
-          </a>
-          <a href="https://natemarcellus.com/" target="_blank" className={`link portfolio ${isDarkMode ? 'dark-link' : ''}`} rel="noopener noreferrer">
-            <FontAwesomeIcon icon={faFolder} /> Portfolio
-          </a>
+            isDarkMode={isDarkMode}
+          />
+          <LinkItem
+            href="https://github.com/NatesHonor/"
+            className="github"
+            icon={faGithub}
+            label="GitHub"
+            isDarkMode={isDarkMode}
+          />
+          <LinkItem
+            href="https://www.instagram.com/nateshonor/"
+            className="instagram"
+            icon={faInstagram}
+            label={isHovered ? '9.5k Followers' : 'Instagram'}
+            isHovered={isHovered}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+            isDarkMode={isDarkMode}
+          />
+          <LinkItem
+            href="https://natemarcellus.com/"
+            className="portfolio"
+            icon={faFolder}
+            label="Portfolio"
+            isDarkMode={isDarkMode}
+          />
         </div>
       </div>
-      <div className="social-icons">
-        <a href="https://www.linkedin.com/in/nmarcellus/" target="_blank" className={`linkedin ${isDarkMode ? 'dark-link' : ''}`} rel="noopener noreferrer">
-          <FontAwesomeIcon icon={faLinkedin} size="2x" />
-        </a>
-        <a href="https://twitter.com/yourprofile" target="_blank" className={`twitter ${isDarkMode ? 'dark-link' : ''}`} rel="noopener noreferrer">
-          <FontAwesomeIcon icon={faTwitter} size="2x" />
-        </a>
-      </div>
+      <SocialIcons isDarkMode={isDarkMode} />
     </div>
   );
 }

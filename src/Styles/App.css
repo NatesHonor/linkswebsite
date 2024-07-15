@@ -18,14 +18,16 @@ body {
   max-width: 500px;
   width: 100%;
   animation: fadeIn 1s ease-in-out;
-  position: relative; /* Ensure proper positioning context */
+  position: relative; 
 }
 
 .social-icons {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px; /* Adjust as needed */
+  margin-top: 20px;
+  flex-wrap: wrap;
+  margin-left: 60px;
 }
 
 .linkedin,
