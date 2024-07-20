@@ -12,18 +12,18 @@
   align-items: center;
   z-index: 1000;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
-  flex-wrap: wrap; /* Allow items to wrap on small screens */
+  flex-wrap: wrap;
 }
 
 .cookie-consent p {
   margin: 0;
   text-align: center;
   max-width: 80%;
-  flex: 1 1 auto; /* Allow text to take available space */
+  flex: 1 1 auto; 
 }
 
 .cookie-consent button {
-  margin: 5px; /* Adjust margin for better spacing */
+  margin: 5px;
   padding: 5px 10px;
   background-color: #fff;
   border: none;
@@ -46,7 +46,6 @@
   color: white;
 }
 
-/* Mobile-specific styles */
 @media (max-width: 600px) {
   .cookie-consent {
     padding: 8px;
@@ -54,10 +53,10 @@
 
   .cookie-consent button {
     padding: 5px 8px;
-    font-size: 14px; /* Adjust font size for mobile */
+    font-size: 14px;
   }
 
   .cookie-consent p {
-    font-size: 14px; /* Adjust text size for better readability */
+    font-size: 14px;
   }
 }
