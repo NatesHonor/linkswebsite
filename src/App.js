@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Styles/App.css';
-import { faFolder, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { faInstagram, faGithub, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { faFolder, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faInstagram, faGithub, faDiscord} from '@fortawesome/free-brands-svg-icons';
 import Header from './Components/Header';
 import LinkItem from './Components/LinkItem';
 import SocialIcons from './Components/SocialIcons';
@@ -9,9 +9,9 @@ import DarkModeToggle from './Components/DarkModeToggle';
 import CookieConsent from './Components/CookieConsent';
 
 function App() {
-  const [isHovered, setIsHovered] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isCookieConsentGiven, setIsCookieConsentGiven] = useState(null);
+  const [hoveredItem, setHoveredItem] = useState(null);
 
   useEffect(() => {
     const cookieConsent = localStorage.getItem('cookieConsent');
@@ -32,21 +32,13 @@ function App() {
 
   useEffect(() => {
     const body = document.body;
-    if (isDarkMode) {
-      body.style.backgroundColor = '#333';
-      body.style.color = '#fff'; 
-    } else {
-      body.style.backgroundColor = '#fff';
-      body.style.color = '#333';
-    }
+    body.style.backgroundColor = isDarkMode ? '#333' : '#fff';
+    body.style.color = isDarkMode ? '#fff' : '#333';
 
     if (isCookieConsentGiven) {
       localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
     }
   }, [isDarkMode, isCookieConsentGiven]);
-
-  const handleMouseOver = () => setIsHovered(true);
-  const handleMouseOut = () => setIsHovered(false);
 
   const toggleDarkMode = () => {
     setIsDarkMode(prevMode => !prevMode);
@@ -59,6 +51,9 @@ function App() {
     }
   };
 
+  const handleMouseOver = (item) => setHoveredItem(item);
+  const handleMouseOut = () => setHoveredItem(null);
+
   return (
     <div>
       {isCookieConsentGiven === null && (
@@ -69,20 +64,26 @@ function App() {
         <Header isDarkMode={isDarkMode} />
         <div className="links">
           <LinkItem
-            href="mailto:contact@natemarcellus.com"
-            className="portfolio"
-            icon={faEnvelope}
-            label="Email Me"
+            href="sms:+(470)705-8483"
+            className="phone"
+            icon={faPhone}
+            label={hoveredItem === 'phone' ? '+1(470)-705-8483' : 'Text Me'}
+            onMouseOver={() => handleMouseOver('phone')}
+            onMouseOut={handleMouseOut}
             isDarkMode={isDarkMode}
           />
           <LinkItem
-            href="sms:+1234567890"
+             href="mailto:contact@natemarcellus.com"
+             className="email"
+             icon={faEnvelope}
+             label="Email Me"
+             isDarkMode={isDarkMode}
+          />
+          <LinkItem
+            href="https://natemarcellus.com/"
             className="portfolio"
-            icon={faWhatsapp}
-            label="Text Me"
-            isHovered={isHovered}
-            onMouseOver={handleMouseOver}
-            onMouseOut={handleMouseOut}
+            icon={faFolder}
+            label="Portfolio"
             isDarkMode={isDarkMode}
           />
           <LinkItem
@@ -96,17 +97,16 @@ function App() {
             href="https://www.instagram.com/nateshonor/"
             className="instagram"
             icon={faInstagram}
-            label={isHovered ? '9.5k Followers' : 'Instagram'}
-            isHovered={isHovered}
-            onMouseOver={handleMouseOver}
+            label={hoveredItem === 'instagram' ? '9.5k Followers' : 'Instagram'}
+            onMouseOver={() => handleMouseOver('instagram')}
             onMouseOut={handleMouseOut}
             isDarkMode={isDarkMode}
           />
           <LinkItem
-            href="https://natemarcellus.com/"
-            className="portfolio"
-            icon={faFolder}
-            label="Portfolio"
+            href="https://discord.gg/invite/UrGZwfjxND"
+            className="discord"
+            icon={faDiscord}
+            label="Join our community!"
             isDarkMode={isDarkMode}
           />
         </div>

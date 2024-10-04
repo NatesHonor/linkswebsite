@@ -98,11 +98,13 @@ body {
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
 }
 
-
-
+.email { background: linear-gradient(135deg, #D93025, #EA4335);}
 .instagram { background: linear-gradient(135deg, #e4405f, #cc3652); }
 .github { background: linear-gradient(135deg, #333, #24292e); }
 .portfolio { background: linear-gradient(135deg, #4CAF50, #45a049); }
+.phone { background: linear-gradient(135deg, #4CAF50, #45a049); }
+.discord { background: linear-gradient(135deg, #7289DA, #5865F2); }
+
 
 .instagram.hovered {
   background: #fff;
